@@ -7,7 +7,6 @@ import {
 import logo from '../../assets/logo.svg';
 
 import api from '../../services/api';
-import Repository from '../Repository';
 
 interface Repository {
   full_name: string;
@@ -15,7 +14,7 @@ interface Repository {
   owner: {
     login: string;
     avatar_url: string;
-  }
+  };
 }
 
 const Dashboard: React.FC = () => {
@@ -28,14 +27,18 @@ const Dashboard: React.FC = () => {
   }
 
   const [newRepository, setNewrepository] = useState('');
-  const [repositories, setRepositories] = useState<Repository[]>(hasRepo_inLocalStorage);
+  const [repositories, setRepositories] = useState<Repository[]>(
+    hasRepo_inLocalStorage,
+  );
   const [inputError, setInputError] = useState('');
 
   useEffect(() => {
     localStorage.setItem('@githubExplorer:repos', JSON.stringify(repositories));
   }, [repositories]);
 
-  async function handleRepository(event: FormEvent<HTMLFormElement>): Promise<void> {
+  async function handleRepository(
+    event: FormEvent<HTMLFormElement>,
+  ): Promise<void> {
     event.preventDefault();
 
     if (!newRepository) {
